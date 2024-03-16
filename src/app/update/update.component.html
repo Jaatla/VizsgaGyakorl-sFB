@@ -1,0 +1,19 @@
+{{gyumi|json}}
+<div class="card" style="width: 18rem;">
+    
+    <div class="card-body">
+      <h5 class="card-title">Gyümölcs </h5>
+    
+      <div *ngFor="let oszlop of oszlopok" class="form-floating mb-3">
+    <ng-container *ngIf="oszlop.type!='plain'; else plain" >
+        <input [(ngModel)]="gyumi[oszlop.key]" [type]="oszlop.type" class="form-control" [id]="oszlop.key">
+        <label [for]="oszlop.key">{{oszlop.text}}</label>
+    </ng-container>
+    <ng-template #plain>
+        {{gyumi[oszlop.key]}}
+    </ng-template>
+    </div>
+      <button (click)="hozzaadas()" type="button" class="btn btn-primary">
+        {{!id?"Hozzáadás":"Módosítás"}}</button>
+    </div>
+  </div>

@@ -1,0 +1,65 @@
+<!-- {{gyumik|json}} -->
+<div class="row">
+    <div class="col">
+        <button (click)="ujHozzaadas()" type="button" class="btn btn-primary">Hozzáadás(componensen)</button>
+
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-2">
+        Keresés:
+        <input [(ngModel)]="keresoSzo" type="text" class="form-control">
+    </div>
+</div>
+<div class="row">
+    <div *ngFor="let oszlop of oszlopok" class="col">
+        {{oszlop.text}}
+    </div>
+    <div class="col">
+        Műveletek
+    </div>
+</div>
+
+<div  class="row">
+    <div *ngFor="let oszlop of oszlopok" class="col">
+        <ng-container [ngSwitch]="oszlop.type">
+            <p *ngSwitchCase="'plain'">
+                {{ujGyumi[oszlop.key]}}
+            </p>
+            <!-- <p *ngSwitchCase="'date'">
+                {{gyumi[oszlop.key]}}
+            </p> -->
+            <p *ngSwitchDefault>
+                <input [(ngModel)]="ujGyumi[oszlop.key]" [type]="oszlop.type" class="form-control">
+            </p>
+        </ng-container>
+        <!-- {{gyumi[oszlop.key]}} -->
+    </div>
+    <div class="col">
+        <button (click)="hozzaadas()" type="button" class="btn btn-primary">Hozzáadás</button>
+
+    </div>
+</div>
+
+<div *ngFor="let gyumi of (gyumik|rendez)|kereso:keresoSzo" class="row">
+    <div *ngFor="let oszlop of oszlopok" class="col">
+        <ng-container [ngSwitch]="oszlop.type">
+            <p *ngSwitchCase="'plain'">
+                {{gyumi[oszlop.key]}}
+            </p>
+            <!-- <p *ngSwitchCase="'date'">
+                {{gyumi[oszlop.key]}}
+            </p> -->
+            <p *ngSwitchDefault>
+                <input [(ngModel)]="gyumi[oszlop.key]" [type]="oszlop.type" class="form-control">
+            </p>
+        </ng-container>
+        <!-- {{gyumi[oszlop.key]}} -->
+    </div>
+    <div class="col">
+        <!-- <button [routerLink]="['/update']" routerLinkActive="router-link-active" ] type="button" class="btn btn-primary">Módosítás</button> -->
+        <button (click)="modositas(gyumi)" type="button" class="btn btn-primary">Módosítás</button>
+        <button (click)="torles(gyumi)" type="button" class="btn btn-primary">Törlés</button>
+    </div>
+</div>
